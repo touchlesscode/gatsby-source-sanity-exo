@@ -1,5 +1,5 @@
 {
-  "name": "y",
+  "name": "gatsby-source-sanity-exo",
   "description": "Gatsby source plugin for building websites using Sanity.io as a backend.",
   "version": "7.3.2",
   "author": "Sanity.io <hello@sanity.io>",
