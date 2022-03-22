@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-source-sanity",
+  "name": "gatsby-source-sanity-exo",
   "description": "Gatsby source plugin for building websites using Sanity.io as a backend.",
   "version": "7.3.2",
   "author": "Sanity.io <hello@sanity.io>",
@@ -12,11 +12,11 @@
   "engines": {
     "node": ">=12.13.0"
   },
-  "repository": "https://github.com/sanity-io/gatsby-source-sanity",
-  "homepage": "https://github.com/sanity-io/gatsby-source-sanity#readme",
+  "repository": "https://github.com/sanity-io/gatsby-source-sanity-exo",
+  "homepage": "https://github.com/sanity-io/gatsby-source-sanity-exo#readme",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sanity-io/gatsby-source-sanity/issues"
+    "url": "https://github.com/sanity-io/gatsby-source-sanity-exo/issues"
   },
   "keywords": [
     "gatsby",
@@ -30,7 +30,7 @@
     "build": "tsc && tsc -t ES5 --outDir lib-es5",
     "format": "prettier --write src/**/*.{ts,tsx}",
     "watch": "tsc --watch & tsc && tsc -t ES5 --outDir lib-es5 --watch",
-    "publish-local": "npm run prepublishOnly && npm version prerelease --no-git-tag-version && npm pack && mkdirp .tarballs && mv gatsby-source-sanity-*.tgz .tarballs/ && echo 'published to .tarballs/'",
+    "publish-local": "npm run prepublishOnly && npm version prerelease --no-git-tag-version && npm pack && mkdirp .tarballs && mv gatsby-source-sanity-exo-*.tgz .tarballs/ && echo 'published to .tarballs/'",
     "prepublishOnly": "npm run build && npm test"
   },
   "dependencies": {

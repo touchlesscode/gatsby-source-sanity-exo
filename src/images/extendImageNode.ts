@@ -1,11 +1,11 @@
-import {GraphQLEnumType, GraphQLFieldConfigMap} from 'gatsby/graphql'
+import {GraphQLFieldConfigMap} from 'gatsby/graphql'
 import {getCacheKey, CACHE_KEYS} from '../util/cache'
 import {ImageNode, ImageArgs, getGatsbyImageData} from './getGatsbyImageProps'
 
 import {getGatsbyImageFieldConfig} from 'gatsby-plugin-image/graphql-utils'
 import {PluginConfig} from '../util/validateConfig'
 
-const ImageFitType = new GraphQLEnumType({
+export const ImageFitType = {
   name: 'SanityImageFit',
   values: {
     CLIP: {value: 'clip'},
@@ -16,16 +16,16 @@ const ImageFitType = new GraphQLEnumType({
     SCALE: {value: 'scale'},
     MIN: {value: 'min'},
   },
-})
+}
 
-const ImagePlaceholderType = new GraphQLEnumType({
+export const ImagePlaceholderType = {
   name: `SanityGatsbyImagePlaceholder`,
   values: {
     DOMINANT_COLOR: {value: `dominantColor`},
     BLURRED: {value: `blurred`},
     NONE: {value: `none`},
   },
-})
+}
 
 const extensions = new Map<string, GraphQLFieldConfigMap<any, any>>()
 
@@ -48,7 +48,7 @@ function getExtension(config: PluginConfig): GraphQLFieldConfigMap<any, any> {
       (image: ImageNode, args: ImageArgs) => getGatsbyImageData(image, args, location),
       {
         placeholder: {
-          type: ImagePlaceholderType,
+          type: ImagePlaceholderType.name,
           defaultValue: `dominantColor`,
           description: `Format of generated placeholder image, displayed while the main image loads.
 BLURRED: a blurred, low resolution image, encoded as a base64 data URI (default)
@@ -56,7 +56,7 @@ DOMINANT_COLOR: a solid color, calculated from the dominant color of the image.
 NONE: no placeholder.`,
         },
         fit: {
-          type: ImageFitType,
+          type: ImageFitType.name,
           defaultValue: 'fill',
         },
       },

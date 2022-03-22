@@ -1,4 +1,4 @@
-# gatsby-source-sanity
+# gatsby-source-sanity-exo
 
 Source plugin for pulling data from [Sanity.io](https://www.sanity.io/) into [Gatsby](https://www.gatsbyjs.org/) websites. Develop with real-time preview of all content changes. Compatible with `gatsby-image`. Uses your project's GraphQL schema definitions to avoid accidental missing fields (no dummy-content needed).
 
@@ -34,7 +34,7 @@ Get up and running in minutes with a fully configured starter project:
 From the command line, use npm (node package manager) to install the plugin:
 
 ```console
-npm install gatsby-source-sanity
+npm install gatsby-source-sanity-exo
 ```
 
 ⚠️ Warning: if using Gatsby v4, make sure you've installed version 7.1.0 or higher.
@@ -46,7 +46,7 @@ module.exports = {
   // ...
   plugins: [
     {
-      resolve: `gatsby-source-sanity`,
+      resolve: `gatsby-source-sanity-exo`,
       options: {
         projectId: `abc123`,
         dataset: `blog`,
@@ -134,7 +134,7 @@ export const query = graphql`
 `
 ```
 
-**Note**: we currently [don't support the `format` option of `gatsbyImageData`](https://github.com/sanity-io/gatsby-source-sanity/issues/134#issuecomment-951876221). Our image CDN automatically serves the best format for the user depending on their device, so you don't need to define formats manually.
+**Note**: we currently [don't support the `format` option of `gatsbyImageData`](https://github.com/sanity-io/gatsby-source-sanity-exo/issues/134#issuecomment-951876221). Our image CDN automatically serves the best format for the user depending on their device, so you don't need to define formats manually.
 
 ### Using images outside of GraphQL
 
@@ -142,7 +142,7 @@ If you are using the raw fields, or simply have an image asset ID you would like
 
 ```jsx
 import {GatsbyImage} from 'gatsby-plugin-image'
-import {getGatsbyImageData} from 'gatsby-source-sanity'
+import {getGatsbyImageData} from 'gatsby-source-sanity-exo'
 
 const sanityConfig = {projectId: 'abc123', dataset: 'blog'}
 const imageAssetId = 'image-488e172a7283400a57e57ffa5762ac3bd837b2ee-4240x2832-jpg'
@@ -257,7 +257,7 @@ const previewEnabled = (process.env.GATSBY_IS_PREVIEW || "false").toLowerCase() 
 module.exports = {
   // ...
   plugins: [
-    resolve: "gatsby-source-sanity",
+    resolve: "gatsby-source-sanity-exo",
     options: {
       // ...
       watchMode: !isProd, // watchMode only in dev mode
@@ -319,7 +319,7 @@ module.exports = {
   // ...
   plugins: [
     {
-      resolve: 'gatsby-source-sanity',
+      resolve: 'gatsby-source-sanity-exo',
       options: {
         projectId: process.env.SANITY_PROJECT_ID,
         dataset: process.env.SANITY_DATASET,

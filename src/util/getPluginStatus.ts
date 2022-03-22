@@ -1,7 +1,7 @@
 import {SourceNodesArgs} from 'gatsby'
 
 export default function getPluginStatus(args: SourceNodesArgs) {
-  return args.store.getState().status.plugins?.[`gatsby-source-sanity`]
+  return args.store.getState().status.plugins?.[`gatsby-source-sanity-exo`]
 }
 
 const LAST_BUILD_KEY = "lastBuildTime"

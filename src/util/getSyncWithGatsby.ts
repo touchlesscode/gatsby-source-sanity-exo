@@ -41,7 +41,7 @@ export default function getSyncWithGatsby(props: {
       const type = getTypeName(doc._type)
       if (!typeMap.objects[type]) {
         reporter.warn(
-          `[sanity] Document "${doc._id}" has type ${doc._type} (${type}), which is not declared in the GraphQL schema. Make sure you run "graphql deploy". Skipping document.`,
+          `[sanity-exo] Document "${doc._id}" has type ${doc._type} (${type}), which is not declared in the GraphQL schema. Make sure you run "graphql deploy". Skipping document.`,
         )
         return
       }

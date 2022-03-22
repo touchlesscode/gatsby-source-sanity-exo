@@ -39,10 +39,10 @@ export default async function handleDeltaChanges({
       syncWithGatsby(doc._id, doc)
     })
     registerBuildTime(args)
-    args.reporter.info(`[sanity] ${changedDocs.length} documents updated.`)
+    args.reporter.info(`[sanity-exo] ${changedDocs.length} documents updated.`)
     return true
   } catch (error) {
-    debug(`[sanity] failed to handleDeltaChanges`, error)
+    debug(`[sanity-exo] failed to handleDeltaChanges`, error)
     return false
   }
 }

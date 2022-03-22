@@ -45,11 +45,11 @@ export function handleWebhookEvent(
   const {webhookBody, reporter} = args
   const validated = validateWebhookPayload(webhookBody)
   if (validated === false) {
-    debug('[sanity] Invalid/non-sanity webhook payload received')
+    debug('[sanity-exo] Invalid/non-sanity webhook payload received')
     return false
   }
 
-  reporter.info('[sanity] Processing changed documents from webhook')
+  reporter.info('[sanity-exo] Processing changed documents from webhook')
 
   if (validated === 'delete-operation') {
     return handleDeleteWebhook(args as deleteWebhookArgs, options)

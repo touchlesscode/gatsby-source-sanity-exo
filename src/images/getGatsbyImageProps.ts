@@ -192,7 +192,7 @@ export function getGatsbyImageData(
 
   const imageProps = generateImageData({
     ...args,
-    pluginName: `gatsby-source-sanity`,
+    pluginName: `gatsby-source-sanity-exo`,
     sourceMetadata: {
       format: 'auto',
       width,

@@ -15,7 +15,7 @@ import oneline from 'oneline'
 import {fromEvent, merge, of} from 'rxjs'
 import {bufferWhen, debounceTime, filter, map, tap} from 'rxjs/operators'
 import debug from './debug'
-import {extendImageNode} from './images/extendImageNode'
+import {extendImageNode, ImageFitType, ImagePlaceholderType} from './images/extendImageNode'
 import {SanityInputNode} from './types/gatsby'
 import {SanityDocument, SanityWebhookBody} from './types/sanity'
 import {CACHE_KEYS, getCacheKey} from './util/cache'
@@ -72,7 +72,7 @@ const initializePlugin = async (
 
   if (Number(gatsbyPkg.version.split('.')[0]) < 3) {
     const unsupportedVersionMessage = oneline`
-    You are using a version of Gatsby not supported by gatsby-source-sanity.
+    You are using a version of Gatsby not supported by gatsby-source-sanity-exo.
     Upgrade gatsby to >= 3.0.0 to continue.`
 
     reporter.panic({
@@ -89,16 +89,16 @@ const initializePlugin = async (
   }
 
   try {
-    reporter.info('[sanity] Fetching remote GraphQL schema')
+    reporter.info('[sanity-exo] Fetching remote GraphQL schema')
     const client = getClient(config)
     const api = await getRemoteGraphQLSchema(client, config)
 
-    reporter.info('[sanity] Transforming to Gatsby-compatible GraphQL SDL')
+    reporter.info('[sanity-exo] Transforming to Gatsby-compatible GraphQL SDL')
     const graphqlSdl = await rewriteGraphQLSchema(api, {config, reporter})
     const graphqlSdlKey = getCacheKey(config, CACHE_KEYS.GRAPHQL_SDL)
     stateCache[graphqlSdlKey] = graphqlSdl
 
-    reporter.info('[sanity] Stitching GraphQL schemas from SDL')
+    reporter.info('[sanity-exo] Stitching GraphQL schemas from SDL')
     const typeMap = getTypeMapFromGraphQLSchema(api)
     const typeMapKey = getCacheKey(config, CACHE_KEYS.TYPE_MAP)
     stateCache[typeMapKey] = typeMap
@@ -111,7 +111,7 @@ const initializePlugin = async (
     if (typeof err.code === 'string' && SANITY_ERROR_CODE_MAP[err.code]) {
       reporter.panic({
         id: prefixId(SANITY_ERROR_CODE_MAP[err.code]),
-        context: {sourceMessage: `[sanity] ${SANITY_ERROR_CODE_MESSAGES[err.code]}`},
+        context: {sourceMessage: `[sanity-exo] ${SANITY_ERROR_CODE_MESSAGES[err.code]}`},
       })
     }
 
@@ -162,14 +162,18 @@ export const createResolvers: GatsbyNode['createResolvers'] = (
 }
 
 export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = (
-  {actions}: CreateSchemaCustomizationArgs,
+  {actions, schema}: CreateSchemaCustomizationArgs,
   pluginConfig: PluginConfig,
 ): any => {
   const {createTypes} = actions
   const graphqlSdlKey = getCacheKey(pluginConfig, CACHE_KEYS.GRAPHQL_SDL)
   const graphqlSdl = stateCache[graphqlSdlKey]
 
-  createTypes(graphqlSdl)
+  createTypes([
+    schema.buildEnumType(ImagePlaceholderType),
+    schema.buildEnumType(ImageFitType),
+    graphqlSdl
+  ])
 }
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (
@@ -184,7 +188,8 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   const typeMap = (stateCache[typeMapKey] || defaultTypeMap) as TypeMap
 
   const client = getClient(config)
-  const url = client.getUrl(`/data/export/${dataset}?tag=sanity.gatsby.source-nodes`)
+  const types = config.types
+  const url = client.getUrl(`/data/export/${dataset}?${types?.length ? `types=${types}` :"tag=sanity.gatsby.source-nodes"}`)
 
   // Stitches together required methods from within the context and actions objects
   const processingOptions = {
@@ -207,9 +212,9 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     // Otherwise, we'd be overloading Gatsby's preview servers on large datasets.
     if (!webhookHandled) {
       reporter.warn(
-        '[sanity] Received webhook is invalid. Make sure your Sanity webhook is configured correctly.',
+        '[sanity-exo] Received webhook is invalid. Make sure your Sanity webhook is configured correctly.',
       )
-      reporter.info(`[sanity] Webhook data: ${JSON.stringify(webhookBody, null, 2)}`)
+      reporter.info(`[sanity-exo] Webhook data: ${JSON.stringify(webhookBody, null, 2)}`)
     }
 
     return
@@ -263,7 +268,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
           .forEach((node) => {
             // If a document isn't included in documentIds, that means it was deleted since lastBuildTime. Don't touch it.
             if (
-              node.internal.owner === 'gatsby-source-sanity' &&
+              node.internal.owner === 'gatsby-source-sanity-exo' &&
               typeof node._id === 'string' &&
               documentIds.includes(unprefixId(node._id))
             ) {
@@ -283,7 +288,7 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
       })
       if (!deltaHandled) {
         reporter.warn(
-          "[sanity] Couldn't retrieve latest changes. Will fetch all documents instead.",
+          "[sanity-exo] Couldn't retrieve latest changes. Will fetch all documents instead.",
         )
       }
     } catch (error) {
@@ -306,11 +311,11 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
     // Note: since we don't setup the listener before *after* all documents has been fetched here we will miss any events that
     // happened in the time window between the documents was fetched and the listener connected. If this happens, the
     // preview will show an outdated version of the document.
-    reporter.info('[sanity] Watch mode enabled, starting a listener')
+    reporter.info('[sanity-exo] Watch mode enabled, starting a listener')
 
     if (pluginConfig.watchModeBuffer) {
       reporter.warn(
-        "[sanity] watchModeBuffer isn't a supported option. The plugin will automatically apply changes when Gatsby can handle them.",
+        "[sanity-exo] watchModeBuffer isn't a supported option. The plugin will automatically apply changes when Gatsby can handle them.",
       )
     }
 
@@ -347,9 +352,10 @@ export const sourceNodes: GatsbyNode['sourceNodes'] = async (
   }
 
   if (!deltaHandled) {
-    reporter.info('[sanity] Fetching export stream for dataset')
+    console.info('Downloading...')
+    reporter.info('[sanity-exo] Fetching export stream for dataset')
     documents = await downloadDocuments(url, config.token, {includeDrafts: overlayDrafts})
-    reporter.info(`[sanity] Done! Exported ${documents.size} documents.`)
+    reporter.info(`[sanity-exo] Done! Exported ${documents.size} documents.`)
     // Renew syncWithGatsby w/ latest documents Map
     syncWithGatsby = getSyncWithGatsby({
       documents,

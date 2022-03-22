@@ -1,4 +1,4 @@
-export const pluginPrefix = 'gatsby-source-sanity'
+export const pluginPrefix = 'gatsby-source-sanity-exo'
 
 export function prefixId(id: string) {
   return `${pluginPrefix}_${id}`

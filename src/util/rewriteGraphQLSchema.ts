@@ -295,7 +295,7 @@ function maybeRewriteFieldName(
   const newFieldName = getConflictFreeFieldName(field.name.value)
 
   context.reporter.warn(
-    `[sanity] Type \`${parentTypeName}\` has field with name \`${field.name.value}\`, which conflicts with Gatsby's internal properties. Renaming to \`${newFieldName}\``,
+    `[sanity-exo] Type \`${parentTypeName}\` has field with name \`${field.name.value}\`, which conflicts with Gatsby's internal properties. Renaming to \`${newFieldName}\``,
   )
 
   return {
