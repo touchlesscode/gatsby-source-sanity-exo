@@ -4,8 +4,8 @@ Source plugin for pulling data from [Sanity.io](https://www.sanity.io/) into [Ga
 
 Get up and running in minutes with a fully configured starter project:
 
-- [Blog with Gatsby](https://www.sanity.io/create?template=sanity-io/sanity-template-gatsby-blog)
-- [Portfolio with Gatsby](https://www.sanity.io/create?template=sanity-io/sanity-template-gatsby-portfolio).
+- [Blog with Gatsby](https://www.sanity.io/create?template=touchlesscode/sanity-template-gatsby-blog)
+- [Portfolio with Gatsby](https://www.sanity.io/create?template=touchlesscode/sanity-template-gatsby-portfolio).
 
 [![Watch a video about the company website built with Gatsby using Sanity.io as a headless CMS](https://cdn.sanity.io/images/3do82whm/production/4f652e6d114e7010aa633b81cbcb97c335980fc8-1920x1080.png?w=500)](https://www.youtube.com/watch?v=STtpXBvJmDA)
 
@@ -134,7 +134,7 @@ export const query = graphql`
 `
 ```
 
-**Note**: we currently [don't support the `format` option of `gatsbyImageData`](https://github.com/sanity-io/gatsby-source-sanity-exo/issues/134#issuecomment-951876221). Our image CDN automatically serves the best format for the user depending on their device, so you don't need to define formats manually.
+**Note**: we currently [don't support the `format` option of `gatsbyImageData`](https://github.com/touchlesscode/gatsby-source-sanity-exo/issues/134#issuecomment-951876221). Our image CDN automatically serves the best format for the user depending on their device, so you don't need to define formats manually.
 
 ### Using images outside of GraphQL
 

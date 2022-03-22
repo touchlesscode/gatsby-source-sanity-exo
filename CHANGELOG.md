@@ -12,7 +12,7 @@ All notable changes will be documented in this file.
 
 ### Changes
 
-- Use Gatsby's node manifest API v2 ([#140](https://github.com/sanity-io/gatsby-source-sanity-exo/pull/140))
+- Use Gatsby's node manifest API v2 ([#140](https://github.com/touchlesscode/gatsby-source-sanity-exo/pull/140))
 
 ## 7.3.0
 
@@ -86,7 +86,7 @@ See [Migration guide](MIGRATION.md) for more details.
 
 - Add support for Gatsby v3.
 - Introduce `getGatsbyImageData()` that adds support for gatsby-plugin-image
-- Fix race condition that sometimes causes Gatsby development instances to revert to the previously published version upon publish ([#87](https://github.com/sanity-io/gatsby-source-sanity-exo/issues/87))
+- Fix race condition that sometimes causes Gatsby development instances to revert to the previously published version upon publish ([#87](https://github.com/touchlesscode/gatsby-source-sanity-exo/issues/87))
 - Add Node v14 to test matrix
 - Improve error reporting
 

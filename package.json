@@ -1,22 +1,22 @@
 {
-  "name": "gatsby-source-sanity-exo",
+  "name": "y",
   "description": "Gatsby source plugin for building websites using Sanity.io as a backend.",
   "version": "7.3.2",
   "author": "Sanity.io <hello@sanity.io>",
   "contributors": [
-    {
-      "name": "Henrique Doro",
-      "email": "opensource@hdoro.dev"
-    }
+    "Henrique Doro <opensource@hdoro.dev>"
   ],
   "engines": {
     "node": ">=12.13.0"
   },
-  "repository": "https://github.com/sanity-io/gatsby-source-sanity-exo",
-  "homepage": "https://github.com/sanity-io/gatsby-source-sanity-exo#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/touchlesscode/gatsby-source-sanity-exo.git"
+  },
+  "homepage": "https://github.com/touchlesscode/gatsby-source-sanity-exo#readme",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sanity-io/gatsby-source-sanity-exo/issues"
+    "url": "https://github.com/touchlesscode/gatsby-source-sanity-exo/issues"
   },
   "keywords": [
     "gatsby",
@@ -76,5 +76,9 @@
   "peerDependencies": {
     "gatsby": "^3.0.0 || ^4.0.0",
     "gatsby-plugin-image": "^1.0.0 || ^2.0.0"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
   }
 }

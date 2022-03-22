@@ -69,7 +69,7 @@ export async function getRemoteGraphQLSchema(client: SanityClient, config: Plugi
     const is404 = statusCode === 404 || /schema not found/i.test(message)
     const error = new ErrorWithCode(
       is404
-        ? `GraphQL API not deployed - see https://github.com/sanity-io/gatsby-source-sanity-exo#graphql-api for more info\n\n`
+        ? `GraphQL API not deployed - see https://github.com/touchlesscode/gatsby-source-sanity-exo#graphql-api for more info\n\n`
         : `${message}`,
       errorCode || statusCode,
     )

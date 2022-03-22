@@ -41,11 +41,11 @@ npm manifest:
     "engines": {
       "node": ">=12.13.0"
     },
-    "repository": "https://github.com/sanity-io/gatsby-source-sanity-exo",
-    "homepage": "https://github.com/sanity-io/gatsby-source-sanity-exo#readme",
+    "repository": "https://github.com/touchlesscode/gatsby-source-sanity-exo",
+    "homepage": "https://github.com/touchlesscode/gatsby-source-sanity-exo#readme",
     "license": "MIT",
     "bugs": {
-      "url": "https://github.com/sanity-io/gatsby-source-sanity-exo/issues"
+      "url": "https://github.com/touchlesscode/gatsby-source-sanity-exo/issues"
     },
     "keywords": [
       "gatsby",

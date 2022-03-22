@@ -6,7 +6,7 @@ Note: `gatsby-source-sanity-exo` v7 requires Gatsby v3 or newer. See Gatsby's of
 
 ### Upgrade gatsby-source-sanity-exo to v7.x
 
-💡 In a rush? See [this commit](https://github.com/sanity-io/sanity-template-gatsby-portfolio/commit/7534bb67f9ec627431a4e62b352b02bb1e033fb6) for a real-world example of upgrading a project from Gatsby v2 to v3 (but bear in mind that this diff may not be directly translatable to the specifics of your project).
+💡 In a rush? See [this commit](https://github.com/touchlesscode/sanity-template-gatsby-portfolio/commit/7534bb67f9ec627431a4e62b352b02bb1e033fb6) for a real-world example of upgrading a project from Gatsby v2 to v3 (but bear in mind that this diff may not be directly translatable to the specifics of your project).
 
 💡 If you get stuck, you can always join our helpful [Slack community](http://slack.sanity.io/) and ask for assistance in the `#gatsby` channel.
 
